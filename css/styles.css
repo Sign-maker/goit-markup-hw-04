@@ -11,6 +11,8 @@
   --hero-background: #2e2f42;
   --white-background: #ffffff;
   --modal-background: #fcfcfc;
+  --my-transition-duration: 250ms;
+  --my-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 h1,
@@ -137,11 +139,26 @@ body {
 .contact-list-link:focus {
   color: var(--pressed-state);
 }
-
+.nav-list-item.active-page::after {
+  content: '';
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--pressed-state);
+  margin-top: -4px;
+}
+.nav-list-item.active-page .nav-list-link {
+  color: var(--pressed-state);
+}
 /* =============================HERO SECTION================================= */
 .hero-section {
   background-color: var(--dark);
   padding: 188px 0;
+  background-image: linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7)),
+    url(../images/people-office.jpg);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: 1440px, 1440px;
 }
 
 .hero-title {
@@ -188,7 +205,14 @@ body {
   display: flex;
   gap: 24px;
 }
-
+.future-icon {
+  background-color: var(--light);
+  border-radius: 4px;
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
 .feature-list-item {
   flex-basis: calc((100% - 72px) / 4);
 }
@@ -225,7 +249,10 @@ body {
 .team-list-item {
   background-color: var(--white-background);
   border-radius: 0px 0px 4px 4px;
+  box-shadow: 0px 2px 1px 0px rgba(46, 47, 66, 0.08), 0px 1px 1px 0px rgba(46, 47, 66, 0.16),
+    0px 1px 6px 0px rgba(46, 47, 66, 0.08);
 }
+
 .card-description {
   padding: 32px 16px;
   border: 1px solid var(--accent);
@@ -235,7 +262,67 @@ body {
 .team-list-item-text {
   text-align: center;
 }
+.team-list-item-text {
+  margin-bottom: 8px;
+}
+.team-icon-list {
+  display: flex;
+  justify-content: space-between;
+}
+.social-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-brand);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color var(--my-transition-duration)
+    var(--my-transition-timing-function);
+}
+.social-link:hover,
+.social-link:active {
+  background-color: var(--success);
+}
+/* =============================CUSTOMER SECTION================================= */
+.customer-section {
+  background-color: var(--white-background);
+  padding: 120px 0;
+}
 
+.customer-list {
+  display: flex;
+
+  justify-content: space-between;
+}
+.customer-list-item {
+  /* flex-basis: calc((100% - 24 * 5) / 6); */
+  width: 164px;
+  flex-shrink: 0;
+}
+.customer-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--subtle-text);
+  /* width: 100%; */
+  /* height: 100%; */
+  padding: 16px 32px;
+  transition: border-color var(--my-transition-duration) var(--my-transition-timing-function);
+}
+.customer-link svg {
+  fill: var(--subtle-text);
+  transition: fill var(--my-transition-duration) var(--my-transition-timing-function);
+}
+.customer-link:hover,
+.customer-link:active {
+  border-color: var(--pressed-state);
+}
+.customer-link:hover svg,
+.customer-link:active svg {
+  fill: var(--pressed-state);
+}
 /* =============================CARD SECTION portfolio================================= */
 .card-section {
   padding: 96px 0 120px;
@@ -281,15 +368,28 @@ body {
   background-color: var(--dark);
   padding: 100px 0;
 }
+.futer-flex.container {
+  display: flex;
+}
 .footer .logo {
   display: inline-block;
   margin-bottom: 16px;
 }
+
 .footer-logo-studio-text,
 .footer-text {
   color: var(--light);
 }
-
-.footer-text {
+.footer-icon-list {
+  display: flex;
+  gap: 16px;
+}
+.footer-social-links {
+  margin-left: 120px;
+}
+.footer-social-links p {
+  margin-bottom: 16px;
+}
+.footer-webstudio {
   width: 264px;
 }
