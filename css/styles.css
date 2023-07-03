@@ -80,6 +80,8 @@ body {
 /* =============================HEADER================================= */
 .header {
   border-bottom: 1px solid var(--accent);
+  box-shadow: 0px 1px 6px 0px rgba(46, 47, 66, 0.08), 0px 1px 1px 0px rgba(46, 47, 66, 0.16),
+    0px 2px 1px 0px rgba(46, 47, 66, 0.08);
 }
 
 .header-flex {
@@ -124,6 +126,27 @@ body {
   color: var(--dark);
   font-weight: 500;
   padding: 24px 0 24px;
+  position: relative;
+}
+
+.nav-list-link.active-page {
+  color: var(--pressed-state);
+}
+
+.nav-list-link.active-page::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: var(--pressed-state);
+}
+
+.nav-list-link,
+.contact-list-link {
+  transition: color var(--my-transition-duration) var(--my-transition-timing-function);
 }
 
 .contact-list {
@@ -133,25 +156,10 @@ body {
   color: var(--text);
 }
 
-.nav-list-link,
-.contact-list-link {
-  transition: color var(--my-transition-duration) var(--my-transition-timing-function);
-}
 .nav-list-link:hover,
 .nav-list-link:focus,
 .contact-list-link:hover,
 .contact-list-link:focus {
-  color: var(--pressed-state);
-}
-.nav-list-item.active-page::after {
-  content: '';
-  display: block;
-  height: 4px;
-  border-radius: 2px;
-  background-color: var(--pressed-state);
-  margin-top: -4px;
-}
-.nav-list-item.active-page .nav-list-link {
   color: var(--pressed-state);
 }
 /* =============================HERO SECTION================================= */
@@ -162,7 +170,9 @@ body {
     url(../images/people-office.jpg);
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
-  background-size: 1440px, 1440px;
+  background-size: cover, cover;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .hero-title {
@@ -203,65 +213,7 @@ body {
 .order-button:focus {
   background-color: var(--pressed-state);
 }
-.backdrop.is-hidden {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-}
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--modal-overlay);
-  opacity: 1;
-  visibility: visible;
-  transition: opacity var(--my-transition-duration) var(--my-transition-timing-function),
-    visibility var(--my-transition-duration) var(--my-transition-timing-function);
-}
-.modal {
-  width: 408px;
-  height: 584px;
-  background-color: var(--modal-background);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  border-radius: 4px;
-}
-.modal-close-button {
-  /* border-style: none; */
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: var(--accent);
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color var(--my-transition-duration)
-      var(--my-transition-timing-function),
-    fill var(--my-transition-duration) var(--my-transition-timing-function),
-    border var(--my-transition-duration) var(--my-transition-timing-function);
-}
-.modal-close-button svg {
-  fill: var(--dark);
-}
-.modal-close-button:hover,
-.modal-close-button:active {
-  background-color: var(--pressed-state);
-  border: 1px solid transparent;
-}
-.modal-close-button:hover svg,
-.modal-close-button:active svg {
-  fill: var(--white-background);
-}
+
 /* =============================FEATURE SECTION================================= */
 .feature-section {
   padding: 120px 0;
@@ -272,10 +224,11 @@ body {
 }
 .future-icon {
   background-color: var(--light);
+  height: 112px;
   border-radius: 4px;
-  padding: 24px 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 8px;
 }
 .feature-list-item {
@@ -319,7 +272,7 @@ body {
 }
 
 .card-description {
-  padding: 32px 16px;
+  padding: 32px 0;
   border: 1px solid var(--accent);
   border-top: none;
 }
@@ -332,21 +285,29 @@ body {
 }
 .team-icon-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 24px;
+}
+.team-icon-item {
+  width: 40px;
+  height: 40px;
 }
 .social-link {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--primary-brand);
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   transition: background-color var(--my-transition-duration)
     var(--my-transition-timing-function);
 }
+.team-svg {
+  fill: var(--light);
+}
 .social-link:hover,
-.social-link:active {
+.social-link:focus {
   background-color: var(--pressed-state);
 }
 /* =============================CUSTOMER SECTION================================= */
@@ -357,13 +318,11 @@ body {
 
 .customer-list {
   display: flex;
-
-  justify-content: space-between;
+  gap: 24px;
 }
 .customer-list-item {
-  /* flex-basis: calc((100% - 24 * 5) / 6); */
-  width: 164px;
-  flex-shrink: 0;
+  flex-basis: calc((100% - 120px) / 6);
+  height: 88px;
 }
 .customer-link {
   display: flex;
@@ -371,22 +330,20 @@ body {
   align-items: center;
   border-radius: 4px;
   border: 1px solid var(--subtle-text);
-  /* width: 100%; */
-  /* height: 100%; */
-  padding: 16px 32px;
-  transition: border-color var(--my-transition-duration) var(--my-transition-timing-function);
+  width: 100%;
+  height: 100%;
+  color: var(--subtle-text);
+  transition: border-color var(--my-transition-duration) var(--my-transition-timing-function),
+    color var(--my-transition-duration) var(--my-transition-timing-function);
 }
-.customer-link svg {
-  fill: var(--subtle-text);
-  transition: fill var(--my-transition-duration) var(--my-transition-timing-function);
-}
+
 .customer-link:hover,
-.customer-link:active {
+.customer-link:focus {
   border-color: var(--pressed-state);
+  color: var(--pressed-state);
 }
-.customer-link:hover svg,
-.customer-link:active svg {
-  fill: var(--pressed-state);
+.customer-svg {
+  fill: currentColor;
 }
 /* =============================CARD SECTION portfolio================================= */
 .card-section {
@@ -410,14 +367,14 @@ body {
       var(--my-transition-timing-function),
     color var(--my-transition-duration) var(--my-transition-timing-function),
     box-shadow var(--my-transition-duration) var(--my-transition-timing-function),
-    border var(--my-transition-duration) var(--my-transition-timing-function);
+    border-color var(--my-transition-duration) var(--my-transition-timing-function);
 }
 
 .filter-button:hover,
 .filter-button:focus {
   background-color: var(--pressed-state);
   color: var(--white-background);
-  border: 1px solid transparent;
+  border-color: transparent;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.12), 0px 2px 1px 0px rgba(0, 0, 0, 0.08),
     0px 3px 1px 0px rgba(0, 0, 0, 0.1);
 }
@@ -429,6 +386,8 @@ body {
 }
 .card-list-link {
   color: var(--text);
+  display: block;
+  transition: box-shadow var(--my-transition-duration) var(--my-transition-timing-function);
 }
 .box {
   display: block;
@@ -440,26 +399,28 @@ body {
   top: 0;
   left: 0;
   height: 100%;
+  width: 100%;
   padding: 40px 32px;
   transform: translateY(100%);
   background-color: var(--primary-brand);
   transition: transform var(--my-transition-duration) var(--my-transition-timing-function);
-}
-.overlay p {
   color: var(--light);
 }
 
 .card-list-item {
   flex-basis: calc((100% - 48px) / 3);
-  transition: box-shadow var(--my-transition-duration) var(--my-transition-timing-function);
 }
-.card-list-item:hover,
-.card-list-item:active {
+.app-card-description {
+  padding: 32px 16px;
+  border: 1px solid var(--accent);
+  border-top: none;
+}
+.card-list-link:hover,
+.card-list-link:focus {
   box-shadow: 0px 2px 1px 0px rgba(46, 47, 66, 0.08), 0px 1px 1px 0px rgba(46, 47, 66, 0.16),
     0px 1px 6px 0px rgba(46, 47, 66, 0.08);
 }
-.card-list-item:hover .overlay,
-.card-list-item:active .overlay .card-list-item-text {
+.card-list-link:hover .overlay {
   transform: translateY(0%);
 }
 
@@ -469,32 +430,116 @@ body {
   background-color: var(--dark);
   padding: 100px 0;
 }
+
 .futer-flex.container {
   display: flex;
+  align-items: baseline;
 }
+
+.footer-webstudio {
+  width: 264px;
+  margin-right: 120px;
+}
+
 .footer .logo {
   display: inline-block;
   margin-bottom: 16px;
 }
 
 .footer-logo-studio-text,
-.footer-text {
+.footer-logo-text {
   color: var(--light);
 }
+
+.footer-social-text {
+  color: var(--white-background);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
 .footer-icon-list {
   display: flex;
   gap: 16px;
 }
-.footer-social {
-  margin-left: 120px;
+
+.footer-icon-item {
+  width: 40px;
+  height: 40px;
 }
-.social-link.footer-social-link:hover,
-.social-link.footer-social-link:active {
+
+.footer-svg {
+  fill: var(--light);
+}
+.footer-social-link:hover,
+.footer-social-link:focus {
   background-color: var(--success);
 }
-.footer-social p {
-  margin-bottom: 16px;
+
+/* =============================BACKDROP================================= */
+
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
-.footer-webstudio {
-  width: 264px;
+.backdrop.is-hidden .modal {
+  transform: translateX(-50%) translateY(50%) scale(0);
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--modal-overlay);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--my-transition-duration) var(--my-transition-timing-function),
+    visibility var(--my-transition-duration) var(--my-transition-timing-function);
+}
+.modal {
+  width: 408px;
+  min-height: 584px;
+  background-color: var(--modal-background);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) scale(1);
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.2), 0px 1px 3px 0px rgba(0, 0, 0, 0.12),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+  transition: transform var(--my-transition-duration) var(--my-transition-timing-function);
+}
+.modal-close-button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--accent);
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color var(--my-transition-duration)
+      var(--my-transition-timing-function),
+    border var(--my-transition-duration) var(--my-transition-timing-function);
+}
+.close-button-svg {
+  fill: var(--dark);
+  transition: fill var(--my-transition-duration) var(--my-transition-timing-function);
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus {
+  background-color: var(--pressed-state);
+  border: none;
+}
+
+.modal-close-button:hover .close-button-svg,
+.modal-close-button:focus .close-button-svg {
+  fill: var(--white-background);
 }
